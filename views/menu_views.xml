@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="cs_social_work_family_call_action" model="ir.actions.act_window">
+            <field name="name">Contactos con familia</field>
+            <field name="res_model">cs.family.call</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem id="menu_cs_social_work_root"
+                  name="Trabajo Social"
+                  sequence="36"
+                  web_icon="cs_social_work,static/description/icon.png"/>
+        <menuitem id="menu_cs_social_work_calendar"
+                  name="Citas (calendario)"
+                  parent="menu_cs_social_work_root"
+                  action="cs_social_work_calendar_action"
+                  sequence="5"/>
+        <menuitem id="menu_cs_social_session"
+                  name="Atenciones"
+                  parent="menu_cs_social_work_root"
+                  action="cs_social_session_action"
+                  sequence="10"/>
+        <menuitem id="menu_cs_social_report"
+                  name="Informes sociales"
+                  parent="menu_cs_social_work_root"
+                  action="cs_social_report_action"
+                  sequence="20"/>
+        <menuitem id="menu_cs_social_procedure"
+                  name="Gestiones y trámites"
+                  parent="menu_cs_social_work_root"
+                  action="cs_social_procedure_action"
+                  sequence="30"/>
+        <menuitem id="menu_cs_social_work_family_call"
+                  name="Contactos familia"
+                  parent="menu_cs_social_work_root"
+                  action="cs_social_work_family_call_action"
+                  sequence="40"/>
+    </data>
+</odoo>

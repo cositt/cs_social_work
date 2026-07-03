@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cs_social_session_all,cs.social.session - Acceso Total,model_cs_social_session,base.group_user,1,1,1,0
+access_cs_social_report_all,cs.social.report - Acceso Total,model_cs_social_report,base.group_user,1,1,1,0
+access_cs_social_procedure_all,cs.social.procedure - Acceso Total,model_cs_social_procedure,base.group_user,1,1,1,0

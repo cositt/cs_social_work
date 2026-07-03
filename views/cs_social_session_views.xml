@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="cs_social_session_view_list" model="ir.ui.view">
+            <field name="name">cs.social.session.list</field>
+            <field name="model">cs.social.session</field>
+            <field name="arch" type="xml">
+                <list string="Atenciones de trabajo social">
+                    <field name="name"/>
+                    <field name="session_date"/>
+                    <field name="resident_id"/>
+                    <field name="social_worker_id"/>
+                    <field name="session_type"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="cs_social_session_view_form" model="ir.ui.view">
+            <field name="name">cs.social.session.form</field>
+            <field name="model">cs.social.session</field>
+            <field name="arch" type="xml">
+                <form string="Atención de trabajo social">
+                    <header>
+                        <button name="action_open_calendar_event" type="object" string="Calendario" class="oe_highlight" invisible="not calendar_event_id"/>
+                        <button name="action_mark_done" string="Marcar realizada" type="object" class="oe_highlight" invisible="state != 'planned'"/>
+                        <button name="action_mark_cancelled" string="Cancelar" type="object" invisible="state != 'planned'"/>
+                        <button name="action_set_planned" string="Reabrir" type="object" invisible="state == 'planned'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="planned,done,cancelled"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1><field name="name" readonly="1"/></h1>
+                        </div>
+                        <group>
+                            <group string="Atención">
+                                <field name="resident_id"/>
+                                <field name="partner_id"/>
+                                <field name="social_worker_id"/>
+                                <field name="session_date"/>
+                                <field name="duration_minutes"/>
+                                <field name="calendar_event_id" readonly="1"/>
+                                <field name="session_type"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        <group string="Evaluación (formularios)">
+                            <field name="assessment_template_id"/>
+                            <field name="assessment_id" domain="[('patient_id', '=', partner_id)]"/>
+                        </group>
+                        <group string="Contenido">
+                            <field name="summary" nolabel="1" colspan="2" placeholder="Objetivos o resumen breve..."/>
+                            <field name="notes" nolabel="1" colspan="2" placeholder="Notas de la atención..."/>
+                        </group>
+                        <group string="Archivos adjuntos (PDF, imágenes, etc.)">
+                            <field name="attachment_ids" nolabel="1" colspan="2" widget="many2many_binary"/>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="cs_social_session_view_search" model="ir.ui.view">
+            <field name="name">cs.social.session.search</field>
+            <field name="model">cs.social.session</field>
+            <field name="arch" type="xml">
+                <search string="Atenciones">
+                    <field name="name"/>
+                    <field name="resident_id"/>
+                    <field name="social_worker_id"/>
+                    <separator/>
+                    <filter name="planned" string="Planificadas" domain="[('state', '=', 'planned')]"/>
+                    <filter name="done" string="Realizadas" domain="[('state', '=', 'done')]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="cs_social_session_action" model="ir.actions.act_window">
+            <field name="name">Atenciones de trabajo social</field>
+            <field name="res_model">cs.social.session</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>
+</odoo>

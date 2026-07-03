@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="cs_social_report_view_list" model="ir.ui.view">
+            <field name="name">cs.social.report.list</field>
+            <field name="model">cs.social.report</field>
+            <field name="arch" type="xml">
+                <list string="Informes sociales">
+                    <field name="name"/>
+                    <field name="report_date"/>
+                    <field name="resident_id"/>
+                    <field name="social_worker_id"/>
+                    <field name="report_type"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="cs_social_report_view_form" model="ir.ui.view">
+            <field name="name">cs.social.report.form</field>
+            <field name="model">cs.social.report</field>
+            <field name="arch" type="xml">
+                <form string="Informe social">
+                    <header>
+                        <button name="action_mark_done" string="Cerrar informe" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+                        <button name="action_set_draft" string="Volver a borrador" type="object" invisible="state != 'done'"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1><field name="name" readonly="1"/></h1>
+                        </div>
+                        <group>
+                            <group string="General">
+                                <field name="resident_id"/>
+                                <field name="partner_id"/>
+                                <field name="social_worker_id"/>
+                                <field name="report_date"/>
+                                <field name="report_type"/>
+                                <field name="recipient_entity" invisible="report_type not in ('derivacion', 'organismo')"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                            <group string="Formulario">
+                                <field name="assessment_template_id"/>
+                                <field name="assessment_id" domain="[('patient_id', '=', partner_id)]"/>
+                            </group>
+                        </group>
+                        <group string="Motivo del informe">
+                            <field name="reason" nolabel="1" colspan="2"/>
+                        </group>
+                        <group string="Situación socio-familiar">
+                            <field name="family_situation" nolabel="1" colspan="2"/>
+                        </group>
+                        <group string="Situación económica y laboral">
+                            <field name="economic_situation" nolabel="1" colspan="2"/>
+                        </group>
+                        <group string="Vivienda y entorno">
+                            <field name="housing_situation" nolabel="1" colspan="2"/>
+                        </group>
+                        <group string="Red de apoyo y recursos">
+                            <field name="support_network" nolabel="1" colspan="2"/>
+                        </group>
+                        <group string="Valoración / diagnóstico social">
+                            <field name="social_assessment" nolabel="1" colspan="2"/>
+                        </group>
+                        <group string="Plan de intervención social">
+                            <field name="intervention_plan" nolabel="1" colspan="2"/>
+                        </group>
+                        <group string="Archivos adjuntos (PDF, imágenes, etc.)">
+                            <field name="attachment_ids" nolabel="1" colspan="2" widget="many2many_binary"/>
+                        </group>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="cs_social_report_view_search" model="ir.ui.view">
+            <field name="name">cs.social.report.search</field>
+            <field name="model">cs.social.report</field>
+            <field name="arch" type="xml">
+                <search string="Informes sociales">
+                    <field name="name"/>
+                    <field name="resident_id"/>
+                    <field name="social_worker_id"/>
+                    <separator/>
+                    <filter name="draft" string="Borrador" domain="[('state', '=', 'draft')]"/>
+                    <filter name="done" string="Cerrados" domain="[('state', '=', 'done')]"/>
+                    <separator/>
+                    <filter name="valoracion" string="Valoración inicial" domain="[('report_type', '=', 'valoracion_inicial')]"/>
+                    <filter name="seguimiento" string="Seguimiento" domain="[('report_type', '=', 'seguimiento')]"/>
+                    <group>
+                        <filter name="group_type" string="Tipo de informe" context="{'group_by': 'report_type'}"/>
+                        <filter name="group_resident" string="Residente" context="{'group_by': 'resident_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="cs_social_report_action" model="ir.actions.act_window">
+            <field name="name">Informes sociales</field>
+            <field name="res_model">cs.social.report</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>
+</odoo>

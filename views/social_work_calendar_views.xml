@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="calendar_event_view_form_social_work" model="ir.ui.view">
+            <field name="name">calendar.event.form.social.work</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='location']" position="after">
+                    <field name="cs_is_social_work_visit"/>
+                    <group string="Centro Sanitario — Trabajo Social" invisible="not cs_is_social_work_visit">
+                        <field name="cs_social_session_id" readonly="1"/>
+                        <field name="cs_resident_id"/>
+                        <field name="cs_residence_id"/>
+                        <field name="cs_room_id"/>
+                        <field name="cs_social_worker_id"/>
+                        <field name="cs_visit_mode"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_calendar_event_search_social_work" model="ir.ui.view">
+            <field name="name">calendar.event.search.social.work</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='recurrent']" position="before">
+                    <filter string="Trabajo Social" name="cs_social_work_visits" domain="[('cs_is_social_work_visit', '=', True)]"/>
+                    <separator/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="cs_social_work_calendar_action" model="ir.actions.act_window">
+            <field name="name">Citas de trabajo social</field>
+            <field name="res_model">calendar.event</field>
+            <field name="view_mode">calendar,list,form</field>
+            <field name="view_id" ref="calendar.view_calendar_event_calendar"/>
+            <field name="search_view_id" ref="calendar.view_calendar_event_search"/>
+            <field name="domain">[('cs_is_social_work_visit', '=', True)]</field>
+            <field name="context">{'default_cs_is_social_work_visit': True, 'default_show_as': 'busy', 'default_privacy': 'confidential'}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Planifique una cita de trabajo social.
+                </p>
+                <p>
+                    Las atenciones planificadas desde «Atenciones» crean o actualizan la cita en el calendario nativo.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

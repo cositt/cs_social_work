@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="cs_resident_social_work_form_extend" model="ir.ui.view">
+            <field name="name">cs.resident.form.social.work.extend</field>
+            <field name="model">cs.resident</field>
+            <field name="inherit_id" ref="cs_resident.resident_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="action_open_social_sessions"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-handshake-o">
+                        <field name="social_session_count" widget="statinfo" string="Trabajo Social"/>
+                    </button>
+                    <button name="action_open_social_reports"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-file-text-o">
+                        <field name="social_report_count" widget="statinfo" string="Informes sociales"/>
+                    </button>
+                    <button name="action_open_social_procedures"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-folder-open-o">
+                        <field name="social_procedure_count" widget="statinfo" string="Gestiones"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
