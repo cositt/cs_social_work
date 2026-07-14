@@ -1,8 +1,8 @@
 {
-    'name': 'Centro Sanitario - Trabajo Social',
-    'version': '1.0.0',
+    'name': 'Centro Sanitario - Área Social',
+    'version': '1.0.1',
     'category': 'Healthcare',
-    'summary': 'Módulo para gestión de atenciones, informes sociales y gestiones de las trabajadoras sociales',
+    'summary': 'Módulo para gestión de atenciones, informes sociales y gestiones del área social (trabajo social y educación social)',
     'author': 'Equilibrium Dev Team',
     'license': 'LGPL-3',
     'depends': [

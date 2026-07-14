@@ -9,8 +9,12 @@ class WorkerSocialWorkExtend(models.Model):
         selection_add=[
             ('terapeuta',),
             ('trabajador_social', 'Trabajador/a Social'),
+            ('educador_social', 'Educador/a Social'),
         ],
-        ondelete={'trabajador_social': lambda recs: recs.write({'job_title': 'otro'})},
+        ondelete={
+            'trabajador_social': lambda recs: recs.write({'job_title': 'otro'}),
+            'educador_social': lambda recs: recs.write({'job_title': 'otro'}),
+        },
     )
 
     @api.onchange('partner_id')
@@ -18,7 +22,11 @@ class WorkerSocialWorkExtend(models.Model):
         res = super()._onchange_partner_id()
         if self.partner_id and not self.job_title:
             for category in self.partner_id.category_id:
-                if 'social' in category.name.lower():
+                category_name = category.name.lower()
+                if 'educador' in category_name:
+                    self.job_title = 'educador_social'
+                    break
+                if 'social' in category_name:
                     self.job_title = 'trabajador_social'
                     break
         return res

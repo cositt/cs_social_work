@@ -31,9 +31,9 @@ class SocialWorkSession(models.Model):
     )
     social_worker_id = fields.Many2one(
         "cs.worker",
-        string="Trabajador/a Social",
+        string="Trabajador/a o Educador/a Social",
         tracking=True,
-        domain=[("job_title", "=", "trabajador_social")],
+        domain=[("job_title", "in", ["trabajador_social", "educador_social"])],
     )
     session_date = fields.Datetime(
         string="Fecha y hora",
@@ -159,7 +159,7 @@ class SocialWorkSession(models.Model):
         self.ensure_one()
         labels = dict(self._fields["session_type"].selection)
         st = labels.get(self.session_type, "")
-        return _("Trabajo Social — %(name)s (%(type)s)") % {
+        return _("Área Social — %(name)s (%(type)s)") % {
             "name": self.resident_id.name,
             "type": st,
         }

@@ -7,7 +7,7 @@ class ResidentSocialWorkExtend(models.Model):
 
     social_session_count = fields.Integer(
         compute='_compute_social_work_counts',
-        string='Atenciones Trabajo Social',
+        string='Atenciones Área Social',
     )
     social_report_count = fields.Integer(
         compute='_compute_social_work_counts',
@@ -15,7 +15,7 @@ class ResidentSocialWorkExtend(models.Model):
     )
     social_procedure_count = fields.Integer(
         compute='_compute_social_work_counts',
-        string='Gestiones Trabajo Social',
+        string='Gestiones Área Social',
     )
 
     def _compute_social_work_counts(self):
@@ -39,7 +39,7 @@ class ResidentSocialWorkExtend(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': _('Atenciones de Trabajo Social — %s') % self.name,
+            'name': _('Atenciones de Área Social — %s') % self.name,
             'res_model': 'cs.social.session',
             'view_mode': 'list,form',
             'domain': [('resident_id', '=', self.id)],
@@ -61,7 +61,7 @@ class ResidentSocialWorkExtend(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': _('Gestiones de Trabajo Social — %s') % self.name,
+            'name': _('Gestiones de Área Social — %s') % self.name,
             'res_model': 'cs.social.procedure',
             'view_mode': 'list,form',
             'domain': [('resident_id', '=', self.id)],

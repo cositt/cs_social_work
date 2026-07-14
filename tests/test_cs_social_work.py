@@ -60,6 +60,27 @@ class TestWorkerJobTitle(TestCsSocialWorkBase):
         )
         self.assertIn('trabajador_social', selection)
 
+    def test_job_title_selection_includes_educador_social(self):
+        selection = dict(
+            self.env['cs.worker']._fields['job_title'].get_description(self.env)['selection']
+        )
+        self.assertIn('educador_social', selection)
+        self.assertEqual(selection['educador_social'], 'Educador/a Social')
+
+    def test_social_worker_domain_allows_both_roles(self):
+        for model in ('cs.social.session', 'cs.social.report', 'cs.social.procedure'):
+            domain = self.env[model]._fields['social_worker_id'].domain
+            self.assertEqual(domain, [('job_title', 'in', ['trabajador_social', 'educador_social'])])
+
+    def test_educador_social_can_be_assigned(self):
+        partner = self.env['res.partner'].create({'name': 'Educador Social Test'})
+        educador = self.env['cs.worker'].create({
+            'partner_id': partner.id,
+            'job_title': 'educador_social',
+        })
+        session = self._make_session(social_worker_id=educador.id)
+        self.assertEqual(session.social_worker_id, educador)
+
 
 class TestSocialSession(TestCsSocialWorkBase):
 

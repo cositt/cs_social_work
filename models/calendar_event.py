@@ -9,20 +9,20 @@ class CalendarEvent(models.Model):
     _inherit = "calendar.event"
 
     cs_is_social_work_visit = fields.Boolean(
-        string="Visita de trabajo social",
+        string="Visita de área social",
         default=False,
         index=True,
-        help="Marca la cita para filtrarla en el gestor de trabajo social y mostrar campos del centro.",
+        help="Marca la cita para filtrarla en el gestor de área social y mostrar campos del centro.",
     )
     cs_social_worker_id = fields.Many2one(
         "cs.worker",
-        string="Trabajador/a Social",
-        domain=[("job_title", "=", "trabajador_social")],
+        string="Trabajador/a o Educador/a Social",
+        domain=[("job_title", "in", ["trabajador_social", "educador_social"])],
         tracking=True,
     )
     cs_social_session_id = fields.Many2one(
         "cs.social.session",
-        string="Atención de trabajo social",
+        string="Atención de área social",
         ondelete="set null",
         copy=False,
         index=True,

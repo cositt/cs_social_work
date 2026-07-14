@@ -24,9 +24,9 @@ class SocialProcedure(models.Model):
     )
     social_worker_id = fields.Many2one(
         "cs.worker",
-        string="Trabajador/a Social",
+        string="Trabajador/a o Educador/a Social",
         tracking=True,
-        domain=[("job_title", "=", "trabajador_social")],
+        domain=[("job_title", "in", ["trabajador_social", "educador_social"])],
     )
     procedure_type = fields.Selection(
         [

@@ -8,7 +8,7 @@
         </record>
 
         <menuitem id="menu_cs_social_work_root"
-                  name="Trabajo Social"
+                  name="Área Social"
                   sequence="36"
                   web_icon="cs_social_work,static/description/icon.png"/>
         <menuitem id="menu_cs_social_work_calendar"
