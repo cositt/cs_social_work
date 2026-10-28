@@ -10,8 +10,8 @@
         'mail',
         'calendar',
         'cs_resident',
-        'cs_patient_followup_forms',
-        'cs_psychology',
+        'cs_patient_followup',
+        'cs_psicology',
         'cs_medical_care',
     ],
     'data': [
