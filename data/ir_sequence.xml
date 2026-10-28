@@ -7,6 +7,7 @@
             <field name="prefix">TS/CIT/</field>
             <field name="padding">5</field>
             <field name="implementation">standard</field>
+            <field name="company_id" eval="False"/>
         </record>
         <record id="sequence_cs_social_report" model="ir.sequence">
             <field name="name">Informes sociales</field>
@@ -14,6 +15,7 @@
             <field name="prefix">TS/INF/</field>
             <field name="padding">5</field>
             <field name="implementation">standard</field>
+            <field name="company_id" eval="False"/>
         </record>
         <record id="sequence_cs_social_procedure" model="ir.sequence">
             <field name="name">Gestiones trabajo social</field>
@@ -21,6 +23,7 @@
             <field name="prefix">TS/GES/</field>
             <field name="padding">5</field>
             <field name="implementation">standard</field>
+            <field name="company_id" eval="False"/>
         </record>
     </data>
 </odoo>
