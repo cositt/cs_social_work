@@ -208,3 +208,37 @@ class TestResidentExtension(TestCsSocialWorkBase):
         action = self.resident.action_open_social_sessions()
         self.assertEqual(action['res_model'], 'cs.social.session')
         self.assertIn(('resident_id', '=', self.resident.id), action['domain'])
+
+
+class TestSequencesMultiCompany(TestCsSocialWorkBase):
+    """Las secuencias son compartidas: numeran en cualquier compañía."""
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.other_company = cls.env['res.company'].create({'name': 'Compañía Secuencias TS Test'})
+        cls.env.user.company_ids |= cls.other_company
+
+    def test_atencion_en_otra_compania_recibe_secuencia(self):
+        session = self.env['cs.social.session'].with_company(self.other_company).create({
+            'resident_id': self.resident.id,
+            'social_worker_id': self.worker.id,
+            'session_date': datetime.now() + timedelta(days=1),
+        })
+        self.assertTrue(session.name.startswith('TS/CIT/'))
+
+    def test_informe_en_otra_compania_recibe_secuencia(self):
+        report = self.env['cs.social.report'].with_company(self.other_company).create({
+            'resident_id': self.resident.id,
+            'social_worker_id': self.worker.id,
+        })
+        self.assertTrue(report.name.startswith('TS/INF/'))
+
+    def test_gestion_en_otra_compania_recibe_secuencia(self):
+        procedure = self.env['cs.social.procedure'].with_company(self.other_company).create({
+            'resident_id': self.resident.id,
+            'social_worker_id': self.worker.id,
+            'procedure_type': 'dependencia',
+            'description': 'Solicitud grado dependencia',
+        })
+        self.assertTrue(procedure.name.startswith('TS/GES/'))

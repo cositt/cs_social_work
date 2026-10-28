@@ -1,6 +1,6 @@
 {
     'name': 'Centro Sanitario - Área Social',
-    'version': '1.0.1',
+    'version': '1.0.2',
     'category': 'Healthcare',
     'summary': 'Módulo para gestión de atenciones, informes sociales y gestiones del área social (trabajo social y educación social)',
     'author': 'Equilibrium Dev Team',
